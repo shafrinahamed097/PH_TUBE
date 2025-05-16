@@ -6,7 +6,8 @@ const loadCategories = async () => {
     try {
         const res = await fetch("https://openapi.programming-hero.com/api/phero-tube/categories");
         const data = await res.json();
-        displayCategories(data.categories);
+        const categories = data.categories;
+        displayCategories(categories);
 
 
 
@@ -20,8 +21,19 @@ const loadCategories = async () => {
 
 
 // create DisplayCategories
-const displayCategories = (data) => {
-    console.log(data);
+const displayCategories = (categories) => {
+    const categoryContainer = document.getElementById("categories");
+    categories.forEach((item) => {
+        console.log(item);
+
+        // create a button
+        const button = document.createElement("button");
+        button.classList = "btn btn-soft btn-accent";
+        button.innerText = item.category;
+
+        // add button to category container
+        categoryContainer.append(button);
+    });
 
 }
 
