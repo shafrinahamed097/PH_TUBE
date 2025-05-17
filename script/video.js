@@ -19,6 +19,26 @@ const loadCategories = async () => {
 
 }
 
+function getTimeString(timeInSeconds) {
+    const pastDate = new Date(Date.now() - timeInSeconds * 1000);
+
+    const day = pastDate.getDate();
+    const month = pastDate.toLocaleString('default', { month: 'long' });
+    const year = pastDate.getFullYear();
+
+    let hours = pastDate.getHours();
+    const minutes = pastDate.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // if 0 then show 12
+
+    return `${day} ${month} - ${year}, ${hours}:${minutes} ${ampm}`;
+}
+
+
+
 
 
 // create DisplayCategories
@@ -68,7 +88,8 @@ const displayVideos = (videos) => {
       src=${video.thumbnail}
       class="h-full w-full object-cover"
       alt="Shoes" />
-      <span class = "absolute right-2 bottom-2 bg-black text-white rounded p-1">${video.others.posted_date}</span>
+      ${video.others.posted_date?.length == 0 ? "" : `<span class = "absolute right-2 bottom-2 bg-black text-white rounded p-1">${getTimeString(video.others.posted_date)}</span>`}
+      
   </figure>
   <div class="px-0 py-2 flex gap-2">
   <div>
