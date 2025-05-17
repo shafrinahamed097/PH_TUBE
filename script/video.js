@@ -37,6 +37,20 @@ function getTimeString(timeInSeconds) {
     return `${day} ${month} - ${year}, ${hours}:${minutes} ${ampm}`;
 }
 
+const loadCategoryVideos = async (id) => {
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
+        const data = await res.json();
+        displayVideos(data.category);
+
+
+    }
+    catch (error) {
+        console.log("Error: ", error);
+    }
+
+}
+
 
 
 
@@ -48,12 +62,16 @@ const displayCategories = (categories) => {
         console.log(item);
 
         // create a button
-        const button = document.createElement("button");
-        button.classList = "btn btn-soft btn-accent";
-        button.innerText = item.category;
+        const buttonContainer = document.createElement("div");
+        buttonContainer.innerHTML = `
+        <button onclick="loadCategoryVideos(${item.category_id}) "class="btn btn-soft btn-success">
+         ${item.category}
+        </button>
+        `;
+
 
         // add button to category container
-        categoryContainer.append(button);
+        categoryContainer.append(buttonContainer);
     });
 
 }
@@ -78,6 +96,7 @@ const loadVideos = async () => {
 
 const displayVideos = (videos) => {
     const videoContainer = document.getElementById("videos");
+    videoContainer.innerHTML = "";
     videos.forEach(video => {
         console.log(video);
         const card = document.createElement("div");
