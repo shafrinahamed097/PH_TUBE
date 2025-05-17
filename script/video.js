@@ -59,25 +59,34 @@ const loadVideos = async () => {
 const displayVideos = (videos) => {
     const videoContainer = document.getElementById("videos");
     videos.forEach(video => {
+        console.log(video);
         const card = document.createElement("div");
         card.classList = "card card-compact";
         card.innerHTML = `
-        <figure>
+        <figure class ="h-[200px]">
     <img
       src=${video.thumbnail}
+      class="h-full w-full object-cover"
       alt="Shoes" />
   </figure>
-  <div class="card-body">
-    <h2 class="card-title">
-      Card Title
-      <div class="badge badge-secondary">NEW</div>
-    </h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-    <div class="card-actions justify-end">
-      <div class="badge badge-outline">Fashion</div>
-      <div class="badge badge-outline">Products</div>
-    </div>
+  <div class="px-0 py-2 flex gap-2">
+  <div>
+     <img class = "w-10 h-10 rounded-full object-cover" src = ${video.authors[0].profile_picture} />
   </div>
+  <div>
+    <h2 class = "font-bold">${video.title}</h2>
+    <div class = "flex items-center gap-2">
+     <p class = "text-gray-400">${video.authors[0].profile_name} </p>
+     <img class = "w-5" src = "https://img.icons8.com/?size=96&id=D9RtvkuOe31p&format=png" />
+    </div>
+   
+    <p> </p>
+  </div>
+    
+    
+   
+    </div>
+
           
         `;
         videoContainer.append(card);
